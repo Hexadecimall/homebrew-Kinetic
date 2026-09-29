@@ -13,5 +13,23 @@ cask "kinetic" do
   app "Kinetic.app"
   binary "#{appdir}/Kinetic.app/Contents/Resources/bin/kinetic"
 
-  caveats "This preview is not notarized. macOS may block its first launch."
+  preflight_steps do
+    run "/usr/bin/codesign",
+        args: ["--verify", "--deep", "--strict", "{{staged_path}}/Kinetic.app"]
+    run "/usr/bin/codesign",
+        args: ["--force", "--sign", "-", "{{staged_path}}/Kinetic.app/Contents/PlugIns/libkineticCppSupport.dylib"]
+    run "/usr/bin/codesign",
+        args: ["--force", "--sign", "-", "{{staged_path}}/Kinetic.app/Contents/Resources/bin/kinetic"]
+    run "/usr/bin/codesign",
+        args: ["--force", "--sign", "-", "{{staged_path}}/Kinetic.app"]
+    run "/usr/bin/codesign",
+        args: ["--verify", "--deep", "--strict", "{{staged_path}}/Kinetic.app"]
+  end
+
+  postflight_steps do
+    run "/usr/bin/codesign",
+        args: ["--verify", "--deep", "--strict", "{{appdir}}/Kinetic.app"]
+  end
+
+  caveats "Locally ad-hoc signed; not notarized. macOS may block first launch."
 end

@@ -7,6 +7,8 @@ cask "kinetic" do
   desc "Code editor with Rust and C++ plugin support"
   homepage "https://github.com/Hexadecimall/Kinetic"
 
+  disable! date: "2026-09-28", because: "the binary preview is blocked by Gatekeeper; use brew install --formula Hexadecimall/Kinetic/kinetic"
+
   depends_on arch: :arm64
   depends_on macos: :sequoia
 

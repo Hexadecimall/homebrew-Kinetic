@@ -1,14 +1,14 @@
 # Kinetic Homebrew tap
 
-Apple Silicon, macOS 15 or newer.
+Apple Silicon, macOS 15 or newer. Requires Apple Command Line Tools and an existing Rust toolchain (Cargo). Install Rust with rustup if needed.
 
 ```sh
-brew install --cask Hexadecimall/Kinetic/kinetic
-brew upgrade --cask Hexadecimall/Kinetic/kinetic
+brew install --formula Hexadecimall/Kinetic/kinetic
+open "$(brew --prefix kinetic)/Kinetic.app"
 ```
 
-Includes Kinetic.app and the kinetic CLI. Language tools are installed separately on demand.
+Kinetic builds locally from checksum-pinned source. CMake is a build-only dependency. No LLVM toolchain or language servers are bundled or added as formula dependencies. Language tools remain separate, optional downloads.
 
-This preview is not notarized. macOS may block first launch; review the app in System Settings > Privacy & Security. No security settings are changed by this cask.
+For an existing binary cask installation, first run `brew uninstall --cask kinetic`. Settings and downloaded tools in `~/.kinetic/` are preserved. The binary cask is disabled.
 
-Uninstall with `brew uninstall --cask kinetic`. Settings and downloaded tools in `~/.kinetic/` are preserved.
+Update with `brew upgrade --formula Hexadecimall/Kinetic/kinetic`.
